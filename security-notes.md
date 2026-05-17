@@ -1,3 +1,15 @@
 # Security Notes
 
-This file is for security learning notes.
+Day 1
+
+Platform:
+PortSwigger Academy
+
+Lab:
+SQL Injection - Apprentice Level
+
+Result:
+Completed successfully.
+
+What I learned:
+Even a small input change can affect database behavior and system responses.
