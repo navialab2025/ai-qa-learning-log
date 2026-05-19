@@ -11,24 +11,15 @@ Model:
 GPT-4o mini
 
 Tests:
-1. Same question x5
-2. JSON output x5
-3. Invalid input x5
-4. Prompt injection x5
+1. Same question repeated 5 times
+2. JSON format output
+3. Invalid symbol input
+4. Prompt injection attempts
 
-Observations:
-
-[Semantic Stability]
-Same meaning was maintained across responses.
-
-[Response Variation]
-Wording, examples, and explanation depth changed.
-
-[JSON Stability]
-JSON format remained valid, but schema keys changed.
-
-[Invalid Input]
-No crashes. The model tried to interpret meaningless input.
-
-[Security]
-Prompt injection attempts were rejected consistently.
+Key Findings:
+- Semantic meaning stayed mostly stable
+- Response wording varied
+- JSON format remained valid
+- JSON schema keys changed between runs
+- Invalid input was handled safely
+- Prompt injection attempts were rejected
