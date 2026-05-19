@@ -9,3 +9,6 @@ AI QA + Security (90 days)
 - Practice bug reporting
 - Study security testing
 - Build a public portfolio
+
+Current Focus:
+AI QA + Security
