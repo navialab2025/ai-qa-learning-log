@@ -20,3 +20,14 @@ Tested:
 
 Key learning:
 AI responses can vary while maintaining similar meaning.
+
+---
+
+## Day 3
+
+Feeling physically tired from double work today.
+
+Reviewed Day 2 results and continued GitHub organization.
+
+Key realization:
+AI QA may become a long-term career path that matches my strengths.
