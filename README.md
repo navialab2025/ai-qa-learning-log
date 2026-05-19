@@ -10,5 +10,6 @@ AI QA + Security (90 days)
 - Study security testing
 - Build a public portfolio
 
+Update README with current focus
 Current Focus:
 AI QA + Security
