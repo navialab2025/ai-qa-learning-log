@@ -1,15 +1,44 @@
-# Bug Reports
-#バグや予期しない動作を記録するファイル
-This file is for recording bugs and unexpected behaviors.
+# 🐛 AI挙動不具合・バグレポート (Bug Reports)
 
-Title:
-JSON schema inconsistency
+本ファイルでは、AI（LLM）アプリケーションの検証中に発見した不具合や、実務導入におけるリスクとなる挙動をプロのQAフォーマットで記録しています。
 
-Description:
-The model returned valid JSON, but key names changed across runs.
+---
 
-Risk:
-May cause instability in API integrations.
+## [Bug-001] AI出力におけるJSONキー名の不一致（再現性・不安定性の問題）
 
-Severity:
-Medium
+### 📑 概要 (Description)
+モデルに対してJSON形式での出力を指定した際、返却されたJSON自体の構文は正しい（Valid JSON）ものの、**実行するたびにキー名（Key Names）が動的に変化してしまう現象**が発生。
+
+* **重要度 (Severity)**：高 (High) ※システム連携において致命的なため
+* **影響リスク (Risk)**：
+  バックエンドやAPI連携側で特定のキー名（例: `product_name`）をパース（解析）する設計にしている場合、AI側が勝手にキー名を変える（例: `name` や `item_name`）ことで、システムがデータを読み込めずアプリ全体がクラッシュ・停止する原因になります。
+
+---
+
+### 🕹️ 再現手順 (Steps to Reproduce)
+1. 以下のプロンプト（またはシステムプロンプト）をGPTモデルに投入。
+2. 同一のセッション、あるいは新しいセッションで複数回（3〜5回）連続で実行する。
+
+**【テストに使用したプロンプト（例）】**
+> 「入力された海産物のデータを、商品名、単価、産地の3つの要素を持つJSON形式で出力してください。」
+
+---
+
+### 📉 実際の結果 (Actual Result)
+JSONの構文としてはエラーが出ないものの、実行回数によってキー名が以下のように揺らぎました。
+
+* **1回目の実行**: `{"item_name": "天然ブリ", "price": 1200, "origin": "石川県"}`
+* **2回目の実行**: `{"product_name": "天然ブリ", "unit_price": 1200, "area": "石川県"}`
+* **3回目の実行**: `{"name": "天然ブリ", "cost": 1200, "source": "石川県"}`
+
+---
+
+### 🎯 期待される結果 (Expected Result)
+何度実行しても、指定したスキーマ（構造）通りに固定されたキー名で返却されること。
+* 期待値：`{"product_name": "...", "price": ..., "origin": "..."}`
+
+---
+
+### 💡 対策案・QA視点からの提案 (Suggested Remediation)
+1. **プロンプトでの厳格なスキーマ定義**：単に「JSONで」と指示するのではなく、`"キー名は必ず 'product_name', 'price', 'origin' としてください。これ以外のキーは一切認めません"` とフォーマットを厳密に縛る指示（Few-Shot例の追加など）をプロンプト側で強化する。
+2. **System Prompt / API設定の変更**：OpenAI APIであれば `response_format: { type: "json_object" }` の活用や、JSON Schema（Structured Outputs）を強制する設定を開発側に提案する。
