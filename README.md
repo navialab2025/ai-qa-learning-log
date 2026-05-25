@@ -39,7 +39,7 @@
 * [📄 bug-report.md](./bug-report.md) ：AIの挙動不具合、ハルシネーション等の具体的なバグレポート（随時追加）
 * [📄 test-log.md](./test-log.md) ：入力値検証、異常系テスト等の検証記録
 * [📄 security-notes.md](./security-notes.md) ：プロンプトインジェクション等の攻撃・防御の実験ログ
-
+* [📄 security-poc-01.md ](./security-poc-01.md)
 ---
 
 ## お問い合わせ・ご相談
